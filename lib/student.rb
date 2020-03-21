@@ -3,16 +3,17 @@ class Student
   attr_accessor :name, :location, :twitter, :linkedin, :github, :blog, :profile_quote, :bio, :profile_url 
 
   @@all = []
-
+  # new ... takes in an argument of a hash and sets that new student's attributes using the key/value pairs of that hash
   def initialize(student_hash)
     self.send("name=", student_hash[:name])
     self.send("location=", student_hash[:location])
     self.send("profile_url=", student_hash[:profile_url])
+    # adds that new student to the Student class' collection of all existing students, stored in the `@@all` class variable
     @@all << self
   end
-
+  # uses the Scraper class to create new students with the correct name and location
   def self.create_from_collection(students_array)
-    students_array.each do |student_hash| #each student is a hash
+    students_array.each do |student_hash|
       Student.new(student_hash)
     end
   end

@@ -4,7 +4,9 @@ require 'pry'
 class Scraper
 
   def self.scrape_index_page(index_url)
+    # scrape the student index page
     page = Nokogiri::HTML(open(index_url))
+    # returns an array of hashes in which each hash represents one student
     students = []
 
     page.css("div.student-card").each do |student|
@@ -21,7 +23,9 @@ class Scraper
 
   def self.scrape_profile_page(profile_url)
     page = Nokogiri::HTML(open(profile_url))
+      # returns a hash of attributes describing an individual student
       student = {}
+      # can handle profile pages without all of the social links
       container = page.css(".social-icon-container a").collect{|icon| icon.attribute("href").value}
       container.each do |link|
         if link.include?("twitter")
